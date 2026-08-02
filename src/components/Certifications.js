@@ -10,6 +10,7 @@ function Certifications() {
       title: "Machine Learning Internship",
       organization: "Prodigy InfoTech",
       date: "Feb – Mar 2025",
+
     },
     {
       title: "MongoDB Python Developer Path",
@@ -25,6 +26,7 @@ function Certifications() {
       title: "Technology Job Simulation",
       organization: "Deloitte (Forage)",
       date: "Jun 2025",
+      link:"https://forage-uploads-prod.s3.amazonaws.com/completion-certificates/9PBTqmSxAf6zZTseP/udmxiyHeqYQLkTPvf_9PBTqmSxAf6zZTseP_iGEWTcbcxRk7RPw3S_1750333771680_completion_certificate.pdf"
     },
     {
       title: "TechNov'24 Hackathon Participant",
@@ -121,6 +123,28 @@ function Certifications() {
             >
               <strong>Completed:</strong> {cert.date}
             </p>
+            {cert.link && (
+  <a
+    href={cert.link}
+    target="_blank"
+    rel="noopener noreferrer"
+    style={{
+      display: "inline-block",
+      marginTop: "18px",
+      padding: "10px 18px",
+      background: "#2563EB",
+      color: "#fff",
+      textDecoration: "none",
+      borderRadius: "8px",
+      fontWeight: "600",
+      transition: "0.3s",
+    }}
+    onMouseOver={(e) => (e.target.style.background = "#1D4ED8")}
+    onMouseOut={(e) => (e.target.style.background = "#2563EB")}
+  >
+    📄 View Certificate
+  </a>
+)}
           </motion.div>
         ))}
       </div>
