@@ -1,4 +1,10 @@
+import { useContext } from "react";
+import { ThemeContext } from "../context/ThemeContext";
+import { motion } from "framer-motion";
+
 function Certifications() {
+  const { darkMode } = useContext(ThemeContext);
+
   const certifications = [
     {
       title: "Machine Learning Internship",
@@ -22,7 +28,8 @@ function Certifications() {
     },
     {
       title: "TechNov'24 Hackathon Participant",
-      organization: "NextGenCloud, VIT-AP & Purple Technologies",
+      organization:
+        "NextGenCloud, VIT-AP & Purple Technologies",
       date: "Nov 2024",
     },
   ];
@@ -31,49 +38,90 @@ function Certifications() {
     <section
       id="certifications"
       style={{
-        padding: "80px 20px",
-        background: "#ffffff",
+        padding: "90px 20px",
+        background: darkMode ? "#111827" : "#ffffff",
+        color: darkMode ? "#F9FAFB" : "#111827",
+        transition: "0.4s",
       }}
     >
-      <h1
+      <motion.h1
+        initial={{ opacity: 0, y: -40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7 }}
+        viewport={{ once: true }}
         style={{
           textAlign: "center",
-          fontSize: "42px",
-          marginBottom: "50px",
+          fontSize: "45px",
+          marginBottom: "60px",
+          color: darkMode ? "#ffffff" : "#111827",
         }}
       >
-        Certifications
-      </h1>
+        🏆 Certifications
+      </motion.h1>
 
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-          gap: "25px",
-          maxWidth: "1100px",
+          gridTemplateColumns: "repeat(auto-fit,minmax(320px,1fr))",
+          gap: "30px",
+          maxWidth: "1200px",
           margin: "auto",
         }}
       >
         {certifications.map((cert, index) => (
-          <div
+          <motion.div
             key={index}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{
+              delay: index * 0.1,
+              duration: 0.5,
+            }}
+            whileHover={{
+              y: -8,
+              scale: 1.03,
+            }}
             style={{
-              background: "#f8f9fa",
-              padding: "25px",
-              borderRadius: "15px",
-              boxShadow: "0 5px 15px rgba(0,0,0,0.08)",
+              background: darkMode ? "#1F2937" : "#f8f9fa",
+              color: darkMode ? "#F9FAFB" : "#111827",
+              padding: "28px",
+              borderRadius: "18px",
+              boxShadow: darkMode
+                ? "0 12px 30px rgba(0,0,0,.45)"
+                : "0 10px 25px rgba(0,0,0,.10)",
+              transition: "0.3s",
             }}
           >
-            <h3>{cert.title}</h3>
+            <h2
+              style={{
+                color: "#3B82F6",
+                marginBottom: "15px",
+                fontSize: "24px",
+              }}
+            >
+              🎖️ {cert.title}
+            </h2>
 
-            <p>
+            <p
+              style={{
+                color: darkMode ? "#D1D5DB" : "#555",
+                lineHeight: "1.8",
+                marginBottom: "12px",
+              }}
+            >
               <strong>Organization:</strong> {cert.organization}
             </p>
 
-            <p>
+            <p
+              style={{
+                color: darkMode ? "#D1D5DB" : "#555",
+                lineHeight: "1.8",
+              }}
+            >
               <strong>Completed:</strong> {cert.date}
             </p>
-          </div>
+          </motion.div>
         ))}
       </div>
     </section>

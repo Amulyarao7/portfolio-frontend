@@ -1,25 +1,40 @@
 import Navbar from "./components/Navbar";
+import Hero from "./components/Hero";
 import About from "./components/About";
 import Skills from "./components/Skills";
-import Education from "./components/Education";
-import Certifications from "./components/Certifications";
-import Hero from "./components/Hero";
 import Projects from "./components/Projects";
 import Contact from "./components/Contact";
+import Education from "./components/Education";
+import Certifications from "./components/Certifications";
+
+import { ThemeContext } from "./context/ThemeContext";
+import { useContext } from "react";
 
 function App() {
+
+  const { darkMode } = useContext(ThemeContext);
+
   return (
-    <div>
+
+    <div
+      style={{
+        background: darkMode ? "#111827" : "#ffffff",
+        color: darkMode ? "white" : "#222",
+        transition: "0.4s"
+      }}
+    >
+
       <Navbar />
-	  <Hero />
+      <Hero />
       <About />
       <Skills />
-	  <Education />
-
-	  <Certifications />
+      <Education />
+      <Certifications />
       <Projects />
       <Contact />
+
     </div>
+
   );
 }
 

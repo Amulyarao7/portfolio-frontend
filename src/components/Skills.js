@@ -1,4 +1,9 @@
+import { useContext } from "react";
+import { ThemeContext } from "../context/ThemeContext";
+
 function Skills() {
+  const { darkMode } = useContext(ThemeContext);
+
   const skillCategories = [
     {
       title: "Programming Languages",
@@ -42,7 +47,9 @@ function Skills() {
       id="skills"
       style={{
         padding: "80px 20px",
-        background: "#ffffff",
+        background: darkMode ? "#111827" : "#ffffff",
+        color: darkMode ? "#F9FAFB" : "#111827",
+        transition: "all 0.4s ease",
       }}
     >
       <h1
@@ -50,6 +57,7 @@ function Skills() {
           textAlign: "center",
           fontSize: "42px",
           marginBottom: "50px",
+          color: darkMode ? "#ffffff" : "#111827",
         }}
       >
         Skills
@@ -68,17 +76,48 @@ function Skills() {
           <div
             key={index}
             style={{
-              background: "#f8f9fa",
+              background: darkMode ? "#1F2937" : "#f8f9fa",
+              color: darkMode ? "#F9FAFB" : "#111827",
               padding: "25px",
               borderRadius: "15px",
-              boxShadow: "0 5px 15px rgba(0,0,0,0.08)",
+              boxShadow: darkMode
+                ? "0 8px 20px rgba(0,0,0,0.5)"
+                : "0 5px 15px rgba(0,0,0,0.08)",
+              transition: "all 0.3s ease",
+              cursor: "pointer",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = "translateY(-8px)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = "translateY(0)";
             }}
           >
-            <h2 style={{ color: "#2563EB" }}>{category.title}</h2>
+            <h2
+              style={{
+                color: darkMode ? "#60A5FA" : "#2563EB",
+                marginBottom: "15px",
+              }}
+            >
+              {category.title}
+            </h2>
 
-            <ul>
+            <ul
+              style={{
+                paddingLeft: "20px",
+                lineHeight: "1.8",
+              }}
+            >
               {category.skills.map((skill, i) => (
-                <li key={i}>{skill}</li>
+                <li
+                  key={i}
+                  style={{
+                    color: darkMode ? "#E5E7EB" : "#374151",
+                    fontSize: "17px",
+                  }}
+                >
+                  {skill}
+                </li>
               ))}
             </ul>
           </div>

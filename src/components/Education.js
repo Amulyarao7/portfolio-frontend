@@ -1,85 +1,143 @@
+import { useContext } from "react";
+import { ThemeContext } from "../context/ThemeContext";
+import { motion } from "framer-motion";
+
 function Education() {
+  const { darkMode } = useContext(ThemeContext);
+
   return (
     <section
       id="education"
       style={{
-        padding: "80px 20px",
-        background: "#f8f9fa",
+        padding: "90px 20px",
+        background: darkMode ? "#111827" : "#f8f9fa",
+        color: darkMode ? "#F9FAFB" : "#111827",
+        transition: "0.4s",
       }}
     >
-      <h1
+      <motion.h1
+        initial={{ opacity: 0, y: -40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7 }}
+        viewport={{ once: true }}
         style={{
           textAlign: "center",
-          fontSize: "42px",
-          marginBottom: "50px",
-          color: "#1f2937",
+          fontSize: "45px",
+          marginBottom: "60px",
+          color: darkMode ? "#ffffff" : "#111827",
         }}
       >
-        Education
-      </h1>
+        🎓 Education
+      </motion.h1>
 
       <div
         style={{
-          maxWidth: "850px",
-          margin: "0 auto",
+          maxWidth: "900px",
+          margin: "auto",
+          display: "flex",
+          flexDirection: "column",
+          gap: "30px",
         }}
       >
-        {/* VIT-AP */}
-        <div
+        {/* VIT */}
+
+        <motion.div
+          whileHover={{
+            y: -8,
+            scale: 1.02,
+          }}
+          transition={{ duration: 0.3 }}
           style={{
-            background: "#ffffff",
-            padding: "30px",
-            borderRadius: "15px",
-            marginBottom: "25px",
-            boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
+            background: darkMode ? "#1F2937" : "#ffffff",
+            color: darkMode ? "#F9FAFB" : "#111827",
+            padding: "35px",
+            borderRadius: "18px",
+            boxShadow: darkMode
+              ? "0 12px 30px rgba(0,0,0,.45)"
+              : "0 10px 25px rgba(0,0,0,.10)",
           }}
         >
-          <h2 style={{ color: "#2563EB" }}>
-            VIT-AP University
+          <h2
+            style={{
+              color: "#3B82F6",
+              marginBottom: "12px",
+            }}
+          >
+            🏫 VIT-AP University
           </h2>
 
-          <h3>Integrated M.Tech in Computer Science & Engineering</h3>
+          <h3 style={{ marginBottom: "15px" }}>
+            Integrated M.Tech in Computer Science & Engineering
+          </h3>
 
-          <p><strong>Duration:</strong> 2023 – 2028</p>
+          <p><strong>📅 Duration:</strong> 2023 – 2028</p>
 
-          <p><strong>Current Year:</strong> 4th Year</p>
+          <p><strong>🎯 Current Year:</strong> 4th Year</p>
 
-          <p><strong>Current CGPA:</strong> 8.52</p>
+          <p><strong>📈 Current CGPA:</strong> 8.52</p>
 
-          <p>
-            Pursuing an Integrated M.Tech in Computer Science & Engineering,
-            focusing on Java, Data Structures & Algorithms, Database
-            Management Systems, Operating Systems, Computer Networks,
-            Full Stack Development, and Software Engineering.
+          <p
+            style={{
+              marginTop: "18px",
+              lineHeight: "1.8",
+              color: darkMode ? "#D1D5DB" : "#555",
+            }}
+          >
+            Pursuing Integrated M.Tech in Computer Science & Engineering
+            with a strong focus on Java, Spring Boot, React, Data
+            Structures & Algorithms, DBMS, Operating Systems,
+            Computer Networks and Full Stack Development.
           </p>
-        </div>
+        </motion.div>
 
         {/* Intermediate */}
-        <div
+
+        <motion.div
+          whileHover={{
+            y: -8,
+            scale: 1.02,
+          }}
+          transition={{ duration: 0.3 }}
           style={{
-            background: "#ffffff",
-            padding: "30px",
-            borderRadius: "15px",
-            boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
+            background: darkMode ? "#1F2937" : "#ffffff",
+            color: darkMode ? "#F9FAFB" : "#111827",
+            padding: "35px",
+            borderRadius: "18px",
+            boxShadow: darkMode
+              ? "0 12px 30px rgba(0,0,0,.45)"
+              : "0 10px 25px rgba(0,0,0,.10)",
           }}
         >
-          <h2 style={{ color: "#2563EB" }}>
-            Narayana Junior College
+          <h2
+            style={{
+              color: "#3B82F6",
+              marginBottom: "12px",
+            }}
+          >
+            🏫 Narayana Junior College
           </h2>
 
-          <h3>Senior Secondary (Class XII)</h3>
+          <h3 style={{ marginBottom: "15px" }}>
+            Senior Secondary (Class XII)
+          </h3>
 
-          <p><strong>Duration:</strong> 2021 – 2023</p>
+          <p><strong>📅 Duration:</strong> 2021 – 2023</p>
 
-          <p><strong>Percentage:</strong> 97.7%</p>
+          <p><strong>🏅 Percentage:</strong> 97.7%</p>
 
-          <p>
-            Completed higher secondary education with a focus on
-            Mathematics, Physics, and Chemistry, achieving an
-            excellent academic record while strengthening analytical
-            thinking and problem-solving skills.
+          <p
+            style={{
+              marginTop: "18px",
+              lineHeight: "1.8",
+              color: darkMode ? "#D1D5DB" : "#555",
+            }}
+          >
+            Completed higher secondary education with a strong
+            foundation in Mathematics, Physics and Chemistry,
+            achieving excellent academic performance while developing
+            analytical thinking and problem-solving skills.
           </p>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
