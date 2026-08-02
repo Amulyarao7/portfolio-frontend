@@ -16,6 +16,7 @@ function Certifications() {
       title: "MongoDB Python Developer Path",
       organization: "MongoDB University",
       date: "Jun 2025",
+      link:"https://learn.mongodb.com/c/4hh72vUFSn2FDTpcKvEJrA"
     },
     {
       title: "Cloud Computing Foundations",
