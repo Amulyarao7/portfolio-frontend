@@ -44,7 +44,6 @@ function Navbar({ user, onLogin, onLogout }) {
           boxShadow: darkMode
             ? "0 5px 25px rgba(0,0,0,0.35)"
             : "0 5px 20px rgba(0,0,0,0.08)",
-          transition: "all 0.4s ease",
         }}
       >
         <h2
@@ -53,7 +52,6 @@ function Navbar({ user, onLogin, onLogout }) {
             fontWeight: "800",
             letterSpacing: "2px",
             fontSize: "30px",
-            cursor: "pointer",
             margin: 0,
           }}
         >
@@ -70,16 +68,8 @@ function Navbar({ user, onLogin, onLogout }) {
           {links.map((item) => (
             <a
               key={item}
-              href={`#${item.toLowerCase()}`}
+              href={"#" + item.toLowerCase()}
               style={linkStyle(darkMode)}
-              onMouseEnter={(e) => {
-                e.target.style.color = "#2563EB";
-                e.target.style.transform = "translateY(-2px)";
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.color = darkMode ? "#ffffff" : "#111827";
-                e.target.style.transform = "translateY(0)";
-              }}
             >
               {item}
             </a>
@@ -90,7 +80,7 @@ function Navbar({ user, onLogin, onLogout }) {
               onClick={() => setShowLogin(true)}
               style={{
                 background: "#2563EB",
-                color: "white",
+                color: "#FFFFFF",
                 border: "none",
                 padding: "10px 18px",
                 borderRadius: "8px",
@@ -105,8 +95,8 @@ function Navbar({ user, onLogin, onLogout }) {
             <button
               onClick={onLogout}
               style={{
-                background: "#dc2626",
-                color: "white",
+                background: "#DC2626",
+                color: "#FFFFFF",
                 border: "none",
                 padding: "10px 18px",
                 borderRadius: "8px",
@@ -124,10 +114,9 @@ function Navbar({ user, onLogin, onLogout }) {
               display: "flex",
               alignItems: "center",
               gap: "8px",
-              marginLeft: "10px",
             }}
           >
-            <span style={{ fontSize: "18px" }}>☀️</span>
+            <span>☀️</span>
 
             <Switch
               checked={darkMode}
@@ -141,7 +130,7 @@ function Navbar({ user, onLogin, onLogout }) {
               width={50}
             />
 
-            <span style={{ fontSize: "18px" }}>🌙</span>
+            <span>🌙</span>
           </div>
         </div>
       </nav>
@@ -151,34 +140,36 @@ function Navbar({ user, onLogin, onLogout }) {
           style={{
             position: "fixed",
             inset: 0,
-            background: "rgba(0,0,0,0.6)",
+            background: "rgba(0,0,0,0.65)",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
             zIndex: 2000,
+            padding: "20px",
           }}
         >
           <div
             style={{
-              background: darkMode ? "#0f172a" : "#ffffff",
-              padding: "30px",
-              borderRadius: "15px",
-              width: "400px",
-              maxWidth: "90%",
               position: "relative",
+              width: "100%",
+              maxWidth: "480px",
             }}
           >
             <button
               onClick={() => setShowLogin(false)}
               style={{
                 position: "absolute",
-                top: "10px",
-                right: "15px",
+                top: "12px",
+                right: "12px",
+                zIndex: 10,
+                width: "35px",
+                height: "35px",
+                borderRadius: "50%",
                 border: "none",
-                background: "transparent",
+                background: darkMode ? "#334155" : "#E5E7EB",
+                color: darkMode ? "#FFFFFF" : "#111827",
                 fontSize: "24px",
                 cursor: "pointer",
-                color: darkMode ? "white" : "black",
               }}
             >
               ×
@@ -193,12 +184,10 @@ function Navbar({ user, onLogin, onLogout }) {
 }
 
 const linkStyle = (darkMode) => ({
-  color: darkMode ? "#ffffff" : "#111827",
+  color: darkMode ? "#FFFFFF" : "#111827",
   textDecoration: "none",
   fontWeight: "600",
   fontSize: "17px",
-  transition: "all 0.3s ease",
-  position: "relative",
 });
 
 export default Navbar;
