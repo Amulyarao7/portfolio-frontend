@@ -1,4 +1,4 @@
-```javascript
+
 import React, { useState, useContext } from "react";
 import axios from "axios";
 import { ThemeContext } from "../context/ThemeContext";
