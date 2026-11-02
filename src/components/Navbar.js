@@ -1,12 +1,11 @@
+
 import React, { useContext, useState } from "react";
 import Switch from "react-switch";
-
 import { ThemeContext } from "../context/ThemeContext";
 import Login from "./Login";
 
 function Navbar({ user, onLogin, onLogout }) {
   const { darkMode, toggleTheme } = useContext(ThemeContext);
-
   const [showLogin, setShowLogin] = useState(false);
 
   const links = [
@@ -19,7 +18,10 @@ function Navbar({ user, onLogin, onLogout }) {
   ];
 
   const handleLogin = (loggedInUser) => {
-    onLogin(loggedInUser);
+    if (onLogin) {
+      onLogin(loggedInUser);
+    }
+
     setShowLogin(false);
   };
 
@@ -45,7 +47,6 @@ function Navbar({ user, onLogin, onLogout }) {
           transition: "all 0.4s ease",
         }}
       >
-        {/* Logo */}
         <h2
           style={{
             color: darkMode ? "#60A5FA" : "#2563EB",
@@ -59,7 +60,6 @@ function Navbar({ user, onLogin, onLogout }) {
           SAGI AMULYA
         </h2>
 
-        {/* Navigation */}
         <div
           style={{
             display: "flex",
@@ -85,26 +85,18 @@ function Navbar({ user, onLogin, onLogout }) {
             </a>
           ))}
 
-          {/* Login / Logout */}
           {!user ? (
             <button
               onClick={() => setShowLogin(true)}
               style={{
                 background: "#2563EB",
-                color: "#ffffff",
+                color: "white",
                 border: "none",
-                padding: "9px 16px",
+                padding: "10px 18px",
                 borderRadius: "8px",
-                fontSize: "15px",
+                fontSize: "16px",
                 fontWeight: "600",
                 cursor: "pointer",
-                transition: "all 0.3s ease",
-              }}
-              onMouseEnter={(e) => {
-                e.target.style.transform = "translateY(-2px)";
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.transform = "translateY(0)";
               }}
             >
               🔐 Login
@@ -113,21 +105,20 @@ function Navbar({ user, onLogin, onLogout }) {
             <button
               onClick={onLogout}
               style={{
-                background: "#ef4444",
-                color: "#ffffff",
+                background: "#dc2626",
+                color: "white",
                 border: "none",
-                padding: "9px 16px",
+                padding: "10px 18px",
                 borderRadius: "8px",
-                fontSize: "15px",
+                fontSize: "16px",
                 fontWeight: "600",
                 cursor: "pointer",
               }}
             >
-              🚪 Logout
+              Logout
             </button>
           )}
 
-          {/* Theme Toggle */}
           <div
             style={{
               display: "flex",
@@ -155,28 +146,25 @@ function Navbar({ user, onLogin, onLogout }) {
         </div>
       </nav>
 
-      {/* Login Popup */}
       {showLogin && (
         <div
           style={{
             position: "fixed",
             inset: 0,
-            background: "rgba(0,0,0,0.55)",
+            background: "rgba(0,0,0,0.6)",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
             zIndex: 2000,
           }}
-          onClick={() => setShowLogin(false)}
         >
           <div
-            onClick={(e) => e.stopPropagation()}
             style={{
-              width: "360px",
-              background: darkMode ? "#1f2937" : "#ffffff",
-              borderRadius: "16px",
+              background: darkMode ? "#0f172a" : "#ffffff",
               padding: "30px",
-              boxShadow: "0 20px 50px rgba(0,0,0,0.3)",
+              borderRadius: "15px",
+              width: "400px",
+              maxWidth: "90%",
               position: "relative",
             }}
           >
@@ -184,16 +172,16 @@ function Navbar({ user, onLogin, onLogout }) {
               onClick={() => setShowLogin(false)}
               style={{
                 position: "absolute",
+                top: "10px",
                 right: "15px",
-                top: "12px",
-                background: "none",
                 border: "none",
-                fontSize: "22px",
+                background: "transparent",
+                fontSize: "24px",
                 cursor: "pointer",
-                color: darkMode ? "#ffffff" : "#111827",
+                color: darkMode ? "white" : "black",
               }}
             >
-              ✕
+              ×
             </button>
 
             <Login onLogin={handleLogin} />
@@ -214,3 +202,4 @@ const linkStyle = (darkMode) => ({
 });
 
 export default Navbar;
+```
