@@ -1,31 +1,25 @@
-
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import axios from "axios";
-import { ThemeContext } from "../context/ThemeContext";
 
 const AUTH_URL = "http://localhost:5002";
 
 function Login({ onLogin }) {
-  const { darkMode } = useContext(ThemeContext);
-
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
     setMessage("");
     setLoading(true);
 
     try {
       const response = await axios.post(
-        AUTH_URL + "/api/login",
+        `${AUTH_URL}/api/login`,
         {
-          username: username,
-          password: password,
+          username,
+          password,
         },
         {
           withCredentials: true,
@@ -33,15 +27,10 @@ function Login({ onLogin }) {
       );
 
       setMessage("Login successful!");
-
-      if (onLogin) {
-        onLogin(response.data.user);
-      }
+      onLogin(response.data.user);
     } catch (error) {
       setMessage(
-        error.response && error.response.data
-          ? error.response.data.message
-          : "Unable to login. Please try again."
+        error.response?.data?.message || "Login failed"
       );
     } finally {
       setLoading(false);
@@ -51,184 +40,126 @@ function Login({ onLogin }) {
   return (
     <div
       style={{
-        width: "100%",
+        minHeight: "100vh",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        background:
+          "linear-gradient(135deg, #0f172a, #1e293b, #312e81)",
         padding: "20px",
-        boxSizing: "border-box",
       }}
     >
       <div
         style={{
           width: "100%",
           maxWidth: "420px",
-          padding: "38px 35px",
+          padding: "40px",
           borderRadius: "24px",
-          background: darkMode ? "#0F172A" : "#FFFFFF",
-          boxShadow: darkMode
-            ? "0 25px 60px rgba(0,0,0,0.45)"
-            : "0 25px 60px rgba(37,99,235,0.15)",
-          border: darkMode
-            ? "1px solid rgba(255,255,255,0.08)"
-            : "1px solid rgba(37,99,235,0.12)",
-          boxSizing: "border-box",
+          background: "rgba(255, 255, 255, 0.08)",
+          backdropFilter: "blur(20px)",
+          WebkitBackdropFilter: "blur(20px)",
+          border: "1px solid rgba(255,255,255,0.15)",
+          boxShadow: "0 25px 60px rgba(0,0,0,0.35)",
         }}
       >
         <div
           style={{
-            width: "70px",
-            height: "70px",
-            margin: "0 auto 20px",
-            borderRadius: "50%",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            background: "linear-gradient(135deg, #2563EB, #7C3AED)",
-            boxShadow: "0 10px 30px rgba(37,99,235,0.35)",
-            fontSize: "32px",
+            textAlign: "center",
+            marginBottom: "30px",
+            color: "white",
           }}
         >
-          🔐
+          <div
+            style={{
+              fontSize: "52px",
+              marginBottom: "10px",
+            }}
+          >
+            🔐
+          </div>
+
+          <h1
+            style={{
+              margin: "0 0 8px",
+              fontSize: "32px",
+            }}
+          >
+            Welcome Back
+          </h1>
+
+          <p
+            style={{
+              margin: 0,
+              color: "#cbd5e1",
+            }}
+          >
+            Login to access my portfolio
+          </p>
         </div>
 
-        <h2
-          style={{
-            textAlign: "center",
-            margin: "0 0 8px",
-            fontSize: "30px",
-            fontWeight: "800",
-            color: darkMode ? "#FFFFFF" : "#111827",
-          }}
-        >
-          Welcome Back
-        </h2>
-
-        <p
-          style={{
-            textAlign: "center",
-            margin: "0 0 30px",
-            color: darkMode ? "#94A3B8" : "#64748B",
-            fontSize: "15px",
-          }}
-        >
-          Login to continue to Amulya's Portfolio
-        </p>
-
         <form onSubmit={handleLogin}>
-          <div style={{ marginBottom: "20px" }}>
+          <div style={{ marginBottom: "18px" }}>
             <label
               style={{
                 display: "block",
                 marginBottom: "8px",
+                color: "#e2e8f0",
                 fontSize: "14px",
-                fontWeight: "600",
-                color: darkMode ? "#E2E8F0" : "#374151",
               }}
             >
               Username
             </label>
 
-            <div style={{ position: "relative" }}>
-              <span
-                style={{
-                  position: "absolute",
-                  left: "15px",
-                  top: "50%",
-                  transform: "translateY(-50%)",
-                  fontSize: "18px",
-                }}
-              >
-                👤
-              </span>
-
-              <input
-                type="text"
-                placeholder="Enter your username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                required
-                style={{
-                  width: "100%",
-                  padding: "14px 15px 14px 45px",
-                  borderRadius: "12px",
-                  border: darkMode
-                    ? "1px solid #334155"
-                    : "1px solid #D1D5DB",
-                  background: darkMode ? "#1E293B" : "#F8FAFC",
-                  color: darkMode ? "#FFFFFF" : "#111827",
-                  fontSize: "15px",
-                  outline: "none",
-                  boxSizing: "border-box",
-                }}
-              />
-            </div>
+            <input
+              type="text"
+              placeholder="Enter username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+              style={{
+                width: "100%",
+                boxSizing: "border-box",
+                padding: "14px 16px",
+                borderRadius: "12px",
+                border: "1px solid rgba(255,255,255,0.2)",
+                background: "rgba(255,255,255,0.1)",
+                color: "white",
+                fontSize: "15px",
+                outline: "none",
+              }}
+            />
           </div>
 
-          <div style={{ marginBottom: "24px" }}>
+          <div style={{ marginBottom: "22px" }}>
             <label
               style={{
                 display: "block",
                 marginBottom: "8px",
+                color: "#e2e8f0",
                 fontSize: "14px",
-                fontWeight: "600",
-                color: darkMode ? "#E2E8F0" : "#374151",
               }}
             >
               Password
             </label>
 
-            <div style={{ position: "relative" }}>
-              <span
-                style={{
-                  position: "absolute",
-                  left: "15px",
-                  top: "50%",
-                  transform: "translateY(-50%)",
-                  fontSize: "18px",
-                }}
-              >
-                🔑
-              </span>
-
-              <input
-                type={showPassword ? "text" : "password"}
-                placeholder="Enter your password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                style={{
-                  width: "100%",
-                  padding: "14px 48px 14px 45px",
-                  borderRadius: "12px",
-                  border: darkMode
-                    ? "1px solid #334155"
-                    : "1px solid #D1D5DB",
-                  background: darkMode ? "#1E293B" : "#F8FAFC",
-                  color: darkMode ? "#FFFFFF" : "#111827",
-                  fontSize: "15px",
-                  outline: "none",
-                  boxSizing: "border-box",
-                }}
-              />
-
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                style={{
-                  position: "absolute",
-                  right: "12px",
-                  top: "50%",
-                  transform: "translateY(-50%)",
-                  border: "none",
-                  background: "transparent",
-                  cursor: "pointer",
-                  fontSize: "17px",
-                }}
-              >
-                {showPassword ? "🙈" : "👁️"}
-              </button>
-            </div>
+            <input
+              type="password"
+              placeholder="Enter password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              style={{
+                width: "100%",
+                boxSizing: "border-box",
+                padding: "14px 16px",
+                borderRadius: "12px",
+                border: "1px solid rgba(255,255,255,0.2)",
+                background: "rgba(255,255,255,0.1)",
+                color: "white",
+                fontSize: "15px",
+                outline: "none",
+              }}
+            />
           </div>
 
           <button
@@ -239,39 +170,33 @@ function Login({ onLogin }) {
               padding: "14px",
               border: "none",
               borderRadius: "12px",
-              background: loading
-                ? "#94A3B8"
-                : "linear-gradient(135deg, #2563EB, #7C3AED)",
-              color: "#FFFFFF",
+              background:
+                "linear-gradient(135deg, #6366f1, #8b5cf6)",
+              color: "white",
               fontSize: "16px",
-              fontWeight: "700",
+              fontWeight: "600",
               cursor: loading ? "not-allowed" : "pointer",
-              boxShadow: "0 10px 25px rgba(37,99,235,0.3)",
+              opacity: loading ? 0.7 : 1,
+              boxShadow: "0 10px 25px rgba(99,102,241,0.35)",
             }}
           >
-            {loading ? "Signing in..." : "Sign In →"}
+            {loading ? "Logging in..." : "Login"}
           </button>
         </form>
 
         {message && (
-          <div
+          <p
             style={{
-              marginTop: "20px",
-              padding: "12px",
-              borderRadius: "10px",
               textAlign: "center",
+              marginTop: "18px",
+              color: message.includes("successful")
+                ? "#86efac"
+                : "#fca5a5",
               fontSize: "14px",
-              fontWeight: "600",
-              background: message === "Login successful!"
-                ? "rgba(34,197,94,0.12)"
-                : "rgba(239,68,68,0.12)",
-              color: message === "Login successful!"
-                ? "#16A34A"
-                : "#DC2626",
             }}
           >
             {message}
-          </div>
+          </p>
         )}
 
         <p
@@ -279,11 +204,11 @@ function Login({ onLogin }) {
             textAlign: "center",
             marginTop: "25px",
             marginBottom: 0,
-            fontSize: "13px",
-            color: darkMode ? "#64748B" : "#94A3B8",
+            color: "#94a3b8",
+            fontSize: "12px",
           }}
         >
-          🔒 Secure authentication
+          🔒 Secure portfolio access
         </p>
       </div>
     </div>
@@ -291,4 +216,3 @@ function Login({ onLogin }) {
 }
 
 export default Login;
-```
