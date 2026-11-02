@@ -1,13 +1,11 @@
 
 import React, { useContext, useState } from "react";
 import Switch from "react-switch";
-
 import { ThemeContext } from "../context/ThemeContext";
 import Login from "./Login";
 
 function Navbar({ user, onLogin, onLogout }) {
   const { darkMode, toggleTheme } = useContext(ThemeContext);
-
   const [showLogin, setShowLogin] = useState(false);
 
   const links = [
@@ -20,16 +18,22 @@ function Navbar({ user, onLogin, onLogout }) {
   ];
 
   const handleLogin = (loggedInUser) => {
-    onLogin(loggedInUser);
+    if (onLogin) {
+      onLogin(loggedInUser);
+    }
+
     setShowLogin(false);
   };
 
   const handleLogout = () => {
-    onLogout();
+    if (onLogout) {
+      onLogout();
+    }
   };
 
-  const scrollToSection = (section) => {
-    const element = document.getElementById(section.toLowerCase());
+  const handleNavigation = (link) => {
+    const id = link.toLowerCase();
+    const element = document.getElementById(id);
 
     if (element) {
       element.scrollIntoView({
@@ -42,9 +46,10 @@ function Navbar({ user, onLogin, onLogout }) {
     <>
       <nav className="navbar">
         <div className="navbar-container">
+
           <div
             className="navbar-logo"
-            onClick={() => scrollToSection("Home")}
+            onClick={() => handleNavigation("Home")}
           >
             Amulya
           </div>
@@ -54,7 +59,7 @@ function Navbar({ user, onLogin, onLogout }) {
               <button
                 key={link}
                 className="navbar-link"
-                onClick={() => scrollToSection(link)}
+                onClick={() => handleNavigation(link)}
               >
                 {link}
               </button>
@@ -62,6 +67,7 @@ function Navbar({ user, onLogin, onLogout }) {
           </div>
 
           <div className="navbar-actions">
+
             <Switch
               onChange={toggleTheme}
               checked={darkMode}
@@ -87,6 +93,7 @@ function Navbar({ user, onLogin, onLogout }) {
                 Login
               </button>
             )}
+
           </div>
         </div>
       </nav>
@@ -98,7 +105,7 @@ function Navbar({ user, onLogin, onLogout }) {
         >
           <div
             className="login-modal"
-            onClick={(e) => e.stopPropagation()}
+            onClick={(event) => event.stopPropagation()}
           >
             <button
               className="close-login"
@@ -117,4 +124,3 @@ function Navbar({ user, onLogin, onLogout }) {
 }
 
 export default Navbar;
-```
