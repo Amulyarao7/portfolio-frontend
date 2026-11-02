@@ -22,10 +22,10 @@ function Login({ onLogin }) {
 
     try {
       const response = await axios.post(
-        `${AUTH_URL}/api/login`,
+        AUTH_URL + "/api/login",
         {
-          username,
-          password,
+          username: username,
+          password: password,
         },
         {
           withCredentials: true,
@@ -39,8 +39,9 @@ function Login({ onLogin }) {
       }
     } catch (error) {
       setMessage(
-        error.response?.data?.message ||
-          "Unable to login. Please try again."
+        error.response && error.response.data
+          ? error.response.data.message
+          : "Unable to login. Please try again."
       );
     } finally {
       setLoading(false);
@@ -64,9 +65,7 @@ function Login({ onLogin }) {
           maxWidth: "420px",
           padding: "38px 35px",
           borderRadius: "24px",
-          background: darkMode
-            ? "rgba(15, 23, 42, 0.95)"
-            : "rgba(255, 255, 255, 0.97)",
+          background: darkMode ? "#0F172A" : "#FFFFFF",
           boxShadow: darkMode
             ? "0 25px 60px rgba(0,0,0,0.45)"
             : "0 25px 60px rgba(37,99,235,0.15)",
@@ -76,7 +75,6 @@ function Login({ onLogin }) {
           boxSizing: "border-box",
         }}
       >
-        {/* Icon */}
         <div
           style={{
             width: "70px",
@@ -86,8 +84,7 @@ function Login({ onLogin }) {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            background:
-              "linear-gradient(135deg, #2563EB, #7C3AED)",
+            background: "linear-gradient(135deg, #2563EB, #7C3AED)",
             boxShadow: "0 10px 30px rgba(37,99,235,0.35)",
             fontSize: "32px",
           }}
@@ -95,14 +92,13 @@ function Login({ onLogin }) {
           🔐
         </div>
 
-        {/* Heading */}
         <h2
           style={{
             textAlign: "center",
             margin: "0 0 8px",
             fontSize: "30px",
             fontWeight: "800",
-            color: darkMode ? "#ffffff" : "#111827",
+            color: darkMode ? "#FFFFFF" : "#111827",
           }}
         >
           Welcome Back
@@ -120,7 +116,6 @@ function Login({ onLogin }) {
         </p>
 
         <form onSubmit={handleLogin}>
-          {/* Username */}
           <div style={{ marginBottom: "20px" }}>
             <label
               style={{
@@ -161,28 +156,15 @@ function Login({ onLogin }) {
                     ? "1px solid #334155"
                     : "1px solid #D1D5DB",
                   background: darkMode ? "#1E293B" : "#F8FAFC",
-                  color: darkMode ? "#ffffff" : "#111827",
+                  color: darkMode ? "#FFFFFF" : "#111827",
                   fontSize: "15px",
                   outline: "none",
                   boxSizing: "border-box",
-                  transition: "all 0.3s ease",
-                }}
-                onFocus={(e) => {
-                  e.target.style.borderColor = "#2563EB";
-                  e.target.style.boxShadow =
-                    "0 0 0 3px rgba(37,99,235,0.12)";
-                }}
-                onBlur={(e) => {
-                  e.target.style.borderColor = darkMode
-                    ? "#334155"
-                    : "#D1D5DB";
-                  e.target.style.boxShadow = "none";
                 }}
               />
             </div>
           </div>
 
-          {/* Password */}
           <div style={{ marginBottom: "24px" }}>
             <label
               style={{
@@ -223,22 +205,10 @@ function Login({ onLogin }) {
                     ? "1px solid #334155"
                     : "1px solid #D1D5DB",
                   background: darkMode ? "#1E293B" : "#F8FAFC",
-                  color: darkMode ? "#ffffff" : "#111827",
+                  color: darkMode ? "#FFFFFF" : "#111827",
                   fontSize: "15px",
                   outline: "none",
                   boxSizing: "border-box",
-                  transition: "all 0.3s ease",
-                }}
-                onFocus={(e) => {
-                  e.target.style.borderColor = "#2563EB";
-                  e.target.style.boxShadow =
-                    "0 0 0 3px rgba(37,99,235,0.12)";
-                }}
-                onBlur={(e) => {
-                  e.target.style.borderColor = darkMode
-                    ? "#334155"
-                    : "#D1D5DB";
-                  e.target.style.boxShadow = "none";
                 }}
               />
 
@@ -261,7 +231,6 @@ function Login({ onLogin }) {
             </div>
           </div>
 
-          {/* Login button */}
           <button
             type="submit"
             disabled={loading}
@@ -273,34 +242,17 @@ function Login({ onLogin }) {
               background: loading
                 ? "#94A3B8"
                 : "linear-gradient(135deg, #2563EB, #7C3AED)",
-              color: "#ffffff",
+              color: "#FFFFFF",
               fontSize: "16px",
               fontWeight: "700",
               cursor: loading ? "not-allowed" : "pointer",
-              boxShadow: loading
-                ? "none"
-                : "0 10px 25px rgba(37,99,235,0.3)",
-              transition: "all 0.3s ease",
-            }}
-            onMouseEnter={(e) => {
-              if (!loading) {
-                e.target.style.transform = "translateY(-2px)";
-                e.target.style.boxShadow =
-                  "0 14px 30px rgba(37,99,235,0.4)";
-              }
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.transform = "translateY(0)";
-              e.target.style.boxShadow = loading
-                ? "none"
-                : "0 10px 25px rgba(37,99,235,0.3)";
+              boxShadow: "0 10px 25px rgba(37,99,235,0.3)",
             }}
           >
             {loading ? "Signing in..." : "Sign In →"}
           </button>
         </form>
 
-        {/* Message */}
         {message && (
           <div
             style={{
@@ -310,10 +262,10 @@ function Login({ onLogin }) {
               textAlign: "center",
               fontSize: "14px",
               fontWeight: "600",
-              background: message.includes("successful")
+              background: message === "Login successful!"
                 ? "rgba(34,197,94,0.12)"
                 : "rgba(239,68,68,0.12)",
-              color: message.includes("successful")
+              color: message === "Login successful!"
                 ? "#16A34A"
                 : "#DC2626",
             }}
@@ -322,7 +274,6 @@ function Login({ onLogin }) {
           </div>
         )}
 
-        {/* Footer */}
         <p
           style={{
             textAlign: "center",
