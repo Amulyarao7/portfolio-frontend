@@ -28,7 +28,6 @@ function Navbar({ user, onLogout }) {
   return (
     <nav className="navbar">
       <div className="navbar-container">
-
         <div
           className="navbar-logo"
           onClick={() => handleNavigation("Home")}
@@ -68,7 +67,6 @@ function Navbar({ user, onLogout }) {
             </button>
           )}
         </div>
-
       </div>
     </nav>
   );
