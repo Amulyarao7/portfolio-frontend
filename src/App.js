@@ -13,9 +13,7 @@ import Login from "./components/Login";
 
 import { ThemeContext } from "./context/ThemeContext";
 
-// Your current Cloudflare tunnel
-const AUTH_URL =
-  "https://bulk-tests-informal-recommends.trycloudflare.com";
+const AUTH_URL = "http://localhost:5002";
 
 function App() {
   const { darkMode } = React.useContext(ThemeContext);
@@ -23,7 +21,6 @@ function App() {
   const [user, setUser] = useState(null);
   const [checkingSession, setCheckingSession] = useState(true);
 
-  // Check whether the user is already logged in
   useEffect(() => {
     const checkSession = async () => {
       try {
@@ -42,12 +39,10 @@ function App() {
     checkSession();
   }, []);
 
-  // Called after normal login or Google login
   const handleLogin = (loggedInUser) => {
     setUser(loggedInUser);
   };
 
-  // Logout
   const handleLogout = async () => {
     try {
       await axios.post(
@@ -64,7 +59,7 @@ function App() {
     setUser(null);
   };
 
-  // Show loading while checking session
+  // Check authentication first
   if (checkingSession) {
     return (
       <div
@@ -82,12 +77,12 @@ function App() {
     );
   }
 
-  // If user is not logged in, show Login page
+  // NOT LOGGED IN → show ONLY login page
   if (!user) {
     return <Login onLogin={handleLogin} />;
   }
 
-  // Logged-in portfolio
+  // LOGGED IN → show the complete portfolio
   return (
     <div
       style={{
@@ -97,17 +92,18 @@ function App() {
         transition: "0.4s",
       }}
     >
-      <Navbar user={user} onLogout={handleLogout} />
+      <Navbar
+        user={user}
+        onLogin={handleLogin}
+        onLogout={handleLogout}
+      />
 
       <Hero />
       <About />
       <Skills />
       <Education />
       <Certifications />
-
-      {/* DO NOT REMOVE THIS */}
       <Projects />
-
       <Contact />
     </div>
   );
