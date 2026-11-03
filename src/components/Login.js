@@ -1,9 +1,7 @@
 import React, { useState } from "react";
+import { GoogleLogin } from "@react-oauth/google";
 
-const API_URL =
-  "https://employed-proc-bibliography-hydraulic.trycloudflare.com";
-
-function Login({ onLogin }) {
+function Login({ onLogin, authUrl }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -16,7 +14,7 @@ function Login({ onLogin }) {
     setLoading(true);
 
     try {
-      const response = await fetch(`${API_URL}/api/login`, {
+      const response = await fetch(`${authUrl}/api/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -42,6 +40,33 @@ function Login({ onLogin }) {
     }
   };
 
+  const handleGoogleSuccess = async (credentialResponse) => {
+    setError("");
+
+    try {
+      const response = await fetch(`${authUrl}/api/google-login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          credential: credentialResponse.credential,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Google login failed");
+      }
+
+      onLogin(data.user);
+    } catch (err) {
+      setError(err.message || "Google login failed");
+    }
+  };
+
   return (
     <div
       style={{
@@ -49,7 +74,8 @@ function Login({ onLogin }) {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+        background:
+          "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
         padding: "20px",
       }}
     >
@@ -63,7 +89,12 @@ function Login({ onLogin }) {
           boxShadow: "0 20px 50px rgba(0,0,0,0.2)",
         }}
       >
-        <div style={{ textAlign: "center", marginBottom: "30px" }}>
+        <div
+          style={{
+            textAlign: "center",
+            marginBottom: "30px",
+          }}
+        >
           <h1
             style={{
               margin: 0,
@@ -74,13 +105,24 @@ function Login({ onLogin }) {
             Welcome Back
           </h1>
 
-          <p style={{ color: "#777", marginTop: "10px" }}>
+          <p
+            style={{
+              color: "#777",
+              marginTop: "10px",
+            }}
+          >
             Login to view Amulya's portfolio
           </p>
         </div>
 
         <form onSubmit={handleSubmit}>
-          <label style={{ display: "block", marginBottom: "8px" }}>
+          <label
+            style={{
+              display: "block",
+              marginBottom: "8px",
+              color: "#333",
+            }}
+          >
             Username
           </label>
 
@@ -101,7 +143,13 @@ function Login({ onLogin }) {
             }}
           />
 
-          <label style={{ display: "block", marginBottom: "8px" }}>
+          <label
+            style={{
+              display: "block",
+              marginBottom: "8px",
+              color: "#333",
+            }}
+          >
             Password
           </label>
 
@@ -155,6 +203,47 @@ function Login({ onLogin }) {
             {loading ? "Logging in..." : "Login"}
           </button>
         </form>
+
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "10px",
+            margin: "25px 0",
+            color: "#999",
+            fontSize: "13px",
+          }}
+        >
+          <div
+            style={{
+              flex: 1,
+              height: "1px",
+              background: "#ddd",
+            }}
+          />
+
+          OR
+
+          <div
+            style={{
+              flex: 1,
+              height: "1px",
+              background: "#ddd",
+            }}
+          />
+        </div>
+
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <GoogleLogin
+            onSuccess={handleGoogleSuccess}
+            onError={() => setError("Google login failed")}
+          />
+        </div>
 
         <p
           style={{
