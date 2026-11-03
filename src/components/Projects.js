@@ -1,146 +1,107 @@
-import React, { useEffect, useState, useContext } from "react";
-import { getProjects } from "../services/projectService";
-import { ThemeContext } from "../context/ThemeContext";
+import React from "react";
+
+const projects = [
+  {
+    title: "StreakGuard",
+    description:
+      "A productivity and habit tracking application with streak management, authentication, and accountability features.",
+    technologies:
+      "Node.js, Express.js, MongoDB, Mongoose, JWT, bcrypt",
+  },
+  {
+    title: "Expense Tracker",
+    description:
+      "A full-stack expense tracking application for managing expenses with secure user authentication.",
+    technologies:
+      "React, Node.js, Express.js, MongoDB, Mongoose, JWT",
+  },
+  {
+    title: "Hostel Marketplace",
+    description:
+      "A marketplace application designed for students to buy, sell, and exchange hostel-related items.",
+    technologies:
+      "React, Node.js, Express.js, MongoDB",
+  },
+];
 
 function Projects() {
-  const [projects, setProjects] = useState([]);
-  const { darkMode } = useContext(ThemeContext);
-
-  useEffect(() => {
-    getProjects()
-      .then((response) => {
-        setProjects(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching projects:", error);
-      });
-  }, []);
-
   return (
     <section
       id="projects"
-      data-aos="fade-up"
       style={{
-        padding: "80px 20px",
-        background: darkMode ? "#111827" : "#f8f9fa",
-        color: darkMode ? "#ffffff" : "#111827",
-        transition: "all 0.4s ease",
+        padding: "90px 8%",
+        backgroundColor: "#f8fafc",
+        color: "#111827",
+        minHeight: "600px",
       }}
     >
-      <h1
-        data-aos="fade-down"
+      <h2
         style={{
           textAlign: "center",
-          fontSize: "45px",
+          fontSize: "48px",
           marginBottom: "50px",
-          color: darkMode ? "#ffffff" : "#111827",
+          color: "#111827",
         }}
       >
         My Projects
-      </h1>
+      </h2>
 
       <div
         style={{
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "center",
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
           gap: "30px",
+          maxWidth: "1100px",
+          margin: "0 auto",
         }}
       >
         {projects.map((project, index) => (
           <div
-            key={project.id}
-            data-aos="zoom-in"
-            data-aos-delay={index * 150}
+            key={index}
             style={{
-              width: "500px",
-              background: darkMode ? "#1F2937" : "#ffffff",
-              color: darkMode ? "#F9FAFB" : "#111827",
-              borderRadius: "15px",
-              overflow: "hidden",
-              boxShadow: darkMode
-                ? "0 8px 20px rgba(0,0,0,0.5)"
-                : "0 8px 20px rgba(0,0,0,0.15)",
-              transition: "all 0.3s ease",
-              cursor: "pointer",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = "translateY(-10px)";
-              e.currentTarget.style.boxShadow = darkMode
-                ? "0 20px 35px rgba(0,0,0,0.7)"
-                : "0 20px 35px rgba(0,0,0,0.25)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = "translateY(0)";
-              e.currentTarget.style.boxShadow = darkMode
-                ? "0 8px 20px rgba(0,0,0,0.5)"
-                : "0 8px 20px rgba(0,0,0,0.15)";
+              backgroundColor: "#ffffff",
+              borderRadius: "16px",
+              padding: "30px",
+              boxShadow: "0 8px 25px rgba(0,0,0,0.10)",
+              border: "1px solid #e5e7eb",
+              minHeight: "250px",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
             }}
           >
-            <img
-              src={project.image}
-              alt={project.title}
-              style={{
-                width: "100%",
-                height: "250px",
-                objectFit: "cover",
-              }}
-            />
-
-            <div style={{ padding: "25px" }}>
-              <h2
+            <div>
+              <h3
                 style={{
-                  color: darkMode ? "#ffffff" : "#111827",
+                  fontSize: "26px",
                   marginBottom: "15px",
+                  color: "#111827",
                 }}
               >
                 {project.title}
-              </h2>
+              </h3>
 
               <p
                 style={{
-                  color: darkMode ? "#D1D5DB" : "#555555",
-                  lineHeight: "1.8",
+                  fontSize: "16px",
+                  lineHeight: "1.7",
+                  color: "#4b5563",
+                  marginBottom: "20px",
                 }}
               >
                 {project.description}
               </p>
 
-              <h4
+              <p
                 style={{
-                  color: darkMode ? "#60A5FA" : "#1565c0",
-                  marginTop: "20px",
+                  fontSize: "14px",
+                  lineHeight: "1.6",
+                  color: "#374151",
                 }}
               >
-                {project.technology}
-              </h4>
-
-              <a
-                href={project.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  display: "inline-block",
-                  marginTop: "20px",
-                  padding: "12px 25px",
-                  background: darkMode ? "#2563EB" : "#1565c0",
-                  color: "#ffffff",
-                  borderRadius: "8px",
-                  textDecoration: "none",
-                  fontWeight: "bold",
-                  transition: "0.3s",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = "#1D4ED8";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = darkMode
-                    ? "#2563EB"
-                    : "#1565c0";
-                }}
-              >
-                🚀 View on GitHub
-              </a>
+                <strong>Technologies:</strong>{" "}
+                {project.technologies}
+              </p>
             </div>
           </div>
         ))}
