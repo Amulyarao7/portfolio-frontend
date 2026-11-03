@@ -12,8 +12,13 @@ import Certifications from "./components/Certifications";
 import Login from "./components/Login";
 
 import { ThemeContext } from "./context/ThemeContext";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
-const AUTH_URL = "http://localhost:5002";
+const AUTH_URL =
+  "https://drums-fancy-vital-consultation.trycloudflare.com";
+
+const GOOGLE_CLIENT_ID =
+  "462734546705-dvvdql6uhglam05cdv78esr4c8gp41u9.apps.googleusercontent.com";
 
 function App() {
   const { darkMode } = React.useContext(ThemeContext);
@@ -21,7 +26,6 @@ function App() {
   const [user, setUser] = useState(null);
   const [checkingSession, setCheckingSession] = useState(true);
 
-  // Check whether the user is already logged in
   useEffect(() => {
     const checkSession = async () => {
       try {
@@ -40,12 +44,10 @@ function App() {
     checkSession();
   }, []);
 
-  // Login successful
   const handleLogin = (loggedInUser) => {
     setUser(loggedInUser);
   };
 
-  // Logout
   const handleLogout = async () => {
     try {
       await axios.post(
@@ -62,7 +64,6 @@ function App() {
     setUser(null);
   };
 
-  // While checking existing session
   if (checkingSession) {
     return (
       <div
@@ -80,12 +81,17 @@ function App() {
     );
   }
 
-  // User is NOT logged in
   if (!user) {
-    return <Login onLogin={handleLogin} />;
+    return (
+      <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+        <Login
+          onLogin={handleLogin}
+          authUrl={AUTH_URL}
+        />
+      </GoogleOAuthProvider>
+    );
   }
 
-  // User IS logged in → show portfolio
   return (
     <div
       style={{
