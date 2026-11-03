@@ -15,7 +15,7 @@ import { ThemeContext } from "./context/ThemeContext";
 
 // Your current Cloudflare tunnel
 const AUTH_URL =
-  "https://drums-fancy-vital-consultation.trycloudflare.com";
+  "https://bulk-tests-informal-recommends.trycloudflare.com";
 
 function App() {
   const { darkMode } = React.useContext(ThemeContext);
