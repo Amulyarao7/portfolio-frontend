@@ -59,7 +59,7 @@ function App() {
     setUser(null);
   };
 
-  // Check authentication first
+  // Check login status first
   if (checkingSession) {
     return (
       <div
@@ -77,12 +77,12 @@ function App() {
     );
   }
 
-  // NOT LOGGED IN → show ONLY login page
+  // NOT LOGGED IN → SHOW ONLY LOGIN PAGE
   if (!user) {
     return <Login onLogin={handleLogin} />;
   }
 
-  // LOGGED IN → show the complete portfolio
+  // LOGGED IN → SHOW PORTFOLIO
   return (
     <div
       style={{
