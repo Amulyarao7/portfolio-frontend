@@ -12,13 +12,10 @@ import Certifications from "./components/Certifications";
 import Login from "./components/Login";
 
 import { ThemeContext } from "./context/ThemeContext";
-import { GoogleOAuthProvider } from "@react-oauth/google";
 
+// Your current Cloudflare tunnel
 const AUTH_URL =
   "https://drums-fancy-vital-consultation.trycloudflare.com";
-
-const GOOGLE_CLIENT_ID =
-  "462734546705-dvvdql6uhglam05cdv78esr4c8gp41u9.apps.googleusercontent.com";
 
 function App() {
   const { darkMode } = React.useContext(ThemeContext);
@@ -26,6 +23,7 @@ function App() {
   const [user, setUser] = useState(null);
   const [checkingSession, setCheckingSession] = useState(true);
 
+  // Check whether the user is already logged in
   useEffect(() => {
     const checkSession = async () => {
       try {
@@ -44,10 +42,12 @@ function App() {
     checkSession();
   }, []);
 
+  // Called after normal login or Google login
   const handleLogin = (loggedInUser) => {
     setUser(loggedInUser);
   };
 
+  // Logout
   const handleLogout = async () => {
     try {
       await axios.post(
@@ -64,6 +64,7 @@ function App() {
     setUser(null);
   };
 
+  // Show loading while checking session
   if (checkingSession) {
     return (
       <div
@@ -81,17 +82,12 @@ function App() {
     );
   }
 
+  // If user is not logged in, show Login page
   if (!user) {
-    return (
-      <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
-        <Login
-          onLogin={handleLogin}
-          authUrl={AUTH_URL}
-        />
-      </GoogleOAuthProvider>
-    );
+    return <Login onLogin={handleLogin} />;
   }
 
+  // Logged-in portfolio
   return (
     <div
       style={{
@@ -101,18 +97,17 @@ function App() {
         transition: "0.4s",
       }}
     >
-      <Navbar
-        user={user}
-        onLogin={handleLogin}
-        onLogout={handleLogout}
-      />
+      <Navbar user={user} onLogout={handleLogout} />
 
       <Hero />
       <About />
       <Skills />
       <Education />
       <Certifications />
+
+      {/* DO NOT REMOVE THIS */}
       <Projects />
+
       <Contact />
     </div>
   );
