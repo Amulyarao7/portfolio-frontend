@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { GoogleLogin } from "@react-oauth/google";
 
-function Login({ onLogin, authUrl }) {
+const API_URL =
+  "https://drums-fancy-vital-consultation.trycloudflare.com";
+
+function Login({ onLogin }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -14,7 +17,7 @@ function Login({ onLogin, authUrl }) {
     setLoading(true);
 
     try {
-      const response = await fetch(`${authUrl}/api/login`, {
+      const response = await fetch(`${API_URL}/api/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -40,31 +43,21 @@ function Login({ onLogin, authUrl }) {
     }
   };
 
-  const handleGoogleSuccess = async (credentialResponse) => {
-    setError("");
+  const handleGoogleSuccess = (credentialResponse) => {
+    console.log("Google OAuth successful");
+    console.log("Google credential received:", credentialResponse);
 
-    try {
-      const response = await fetch(`${authUrl}/api/google-login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify({
-          credential: credentialResponse.credential,
-        }),
-      });
+    // OAuth demonstration:
+    // Google has authenticated the user.
+    // We treat the Google login as a successful portfolio login.
+    onLogin({
+      id: "google-user",
+      username: "Google User",
+    });
+  };
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || "Google login failed");
-      }
-
-      onLogin(data.user);
-    } catch (err) {
-      setError(err.message || "Google login failed");
-    }
+  const handleGoogleError = () => {
+    setError("Google login failed. Please try again.");
   };
 
   return (
@@ -120,7 +113,6 @@ function Login({ onLogin, authUrl }) {
             style={{
               display: "block",
               marginBottom: "8px",
-              color: "#333",
             }}
           >
             Username
@@ -147,7 +139,6 @@ function Login({ onLogin, authUrl }) {
             style={{
               display: "block",
               marginBottom: "8px",
-              color: "#333",
             }}
           >
             Password
@@ -210,8 +201,6 @@ function Login({ onLogin, authUrl }) {
             alignItems: "center",
             gap: "10px",
             margin: "25px 0",
-            color: "#999",
-            fontSize: "13px",
           }}
         >
           <div
@@ -222,7 +211,14 @@ function Login({ onLogin, authUrl }) {
             }}
           />
 
-          OR
+          <span
+            style={{
+              color: "#999",
+              fontSize: "13px",
+            }}
+          >
+            OR
+          </span>
 
           <div
             style={{
@@ -241,7 +237,8 @@ function Login({ onLogin, authUrl }) {
         >
           <GoogleLogin
             onSuccess={handleGoogleSuccess}
-            onError={() => setError("Google login failed")}
+            onError={handleGoogleError}
+            useOneTap={false}
           />
         </div>
 
