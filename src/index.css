@@ -1,13 +1,149 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.navbar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 70px;
+  padding: 0 30px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+}
+
+.navbar-logo {
+  font-size: 25px;
+  font-weight: 700;
+  color: #333;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.navbar-link {
+  border: none;
+  background: transparent;
+  padding: 8px 12px;
+
+  font-size: 15px;
+  font-family: inherit;
+  color: #333;
+
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.navbar-link:hover {
+  background: #eef2ff;
+  color: #4f46e5;
+}
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.login-button {
+  border: none;
+  padding: 9px 18px;
+  border-radius: 8px;
+
+  background: #4f46e5;
+  color: white;
+
+  font-size: 14px;
+  font-family: inherit;
+  font-weight: 600;
+
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.login-button:hover {
+  background: #4338ca;
+  transform: translateY(-1px);
+}
+
+/* =========================
+   DARK MODE NAVBAR
+========================= */
+
+body.dark-mode .navbar {
+  background: rgba(17, 24, 39, 0.95);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .navbar-logo {
+  color: white;
+}
+
+body.dark-mode .navbar-link {
+  color: #e5e7eb;
+}
+
+body.dark-mode .navbar-link:hover {
+  background: #1f2937;
+  color: #a5b4fc;
+}
+
+/* =========================
+   MOBILE NAVBAR
+========================= */
+
+@media (max-width: 900px) {
+  .navbar-container {
+    padding: 15px 20px;
+    flex-wrap: wrap;
+  }
+
+  .navbar-links {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .navbar-link {
+    font-size: 14px;
+    padding: 7px 9px;
+  }
+}
+
+@media (max-width: 600px) {
+  .navbar-container {
+    gap: 12px;
+  }
+
+  .navbar-logo {
+    font-size: 21px;
+  }
+
+  .navbar-actions {
+    gap: 8px;
+  }
+
+  .login-button {
+    padding: 7px 12px;
+    font-size: 13px;
+  }
 }
