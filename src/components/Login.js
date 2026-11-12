@@ -2,33 +2,25 @@
 import React, { useState } from "react";
 import { GoogleLogin } from "@react-oauth/google";
 
-const AUTH_URL =
-  "https://restaurants-apartment-consciousness-propecia.trycloudflare.com";
-
 function Login({ onLogin }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // Username and password login
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     setError("");
     setLoading(true);
 
     try {
-      const response = await fetch(`${AUTH_URL}/api/login`, {
+      const response = await fetch("/api/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         credentials: "include",
-        body: JSON.stringify({
-          username,
-          password,
-        }),
+        body: JSON.stringify({ username, password }),
       });
 
       const data = await response.json();
@@ -39,19 +31,18 @@ function Login({ onLogin }) {
 
       onLogin(data.user);
     } catch (err) {
-      setError(err.message || "Unable to login");
+      setError(err.message || "Unable to connect to the server.");
     } finally {
       setLoading(false);
     }
   };
 
-  // Google OAuth login - verified by backend
   const handleGoogleSuccess = async (credentialResponse) => {
     setError("");
     setLoading(true);
 
     try {
-      const response = await fetch(`${AUTH_URL}/api/google-login`, {
+      const response = await fetch("/api/google-login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -70,13 +61,12 @@ function Login({ onLogin }) {
 
       onLogin(data.user);
     } catch (err) {
-      setError(err.message || "Google authentication failed");
+      setError(err.message || "Google authentication failed.");
     } finally {
       setLoading(false);
     }
   };
 
-  // Google OAuth error
   const handleGoogleError = () => {
     setError("Google login failed. Please try again.");
   };
@@ -106,7 +96,6 @@ function Login({ onLogin }) {
           <h1 style={{ margin: 0, fontSize: "32px", color: "#222" }}>
             Welcome Back
           </h1>
-
           <p style={{ color: "#777", marginTop: "10px" }}>
             Login to view Amulya's portfolio
           </p>
@@ -198,9 +187,7 @@ function Login({ onLogin }) {
           }}
         >
           <div style={{ flex: 1, height: "1px", background: "#ddd" }} />
-
           <span style={{ color: "#999", fontSize: "13px" }}>OR</span>
-
           <div style={{ flex: 1, height: "1px", background: "#ddd" }} />
         </div>
 
