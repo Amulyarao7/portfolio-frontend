@@ -1,5 +1,5 @@
+
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
@@ -13,7 +13,6 @@ import Login from "./components/Login";
 
 import { ThemeContext } from "./context/ThemeContext";
 
-const AUTH_URL = "https://restaurants-apartment-consciousness-propecia.trycloudflare.com";
 function App() {
   const { darkMode } = React.useContext(ThemeContext);
 
@@ -23,12 +22,20 @@ function App() {
   useEffect(() => {
     const checkSession = async () => {
       try {
-        const response = await axios.get(`${AUTH_URL}/api/me`, {
-          withCredentials: true,
+        const response = await fetch("/api/me", {
+          method: "GET",
+          credentials: "include",
         });
 
-        setUser(response.data.user);
+        if (!response.ok) {
+          setUser(null);
+          return;
+        }
+
+        const data = await response.json();
+        setUser(data.user);
       } catch (error) {
+        console.error("Session check failed:", error);
         setUser(null);
       } finally {
         setCheckingSession(false);
@@ -44,21 +51,21 @@ function App() {
 
   const handleLogout = async () => {
     try {
-      await axios.post(
-        `${AUTH_URL}/api/logout`,
-        {},
-        {
-          withCredentials: true,
-        }
-      );
+      const response = await fetch("/api/logout", {
+        method: "POST",
+        credentials: "include",
+      });
+
+      if (!response.ok) {
+        throw new Error("Logout request failed");
+      }
     } catch (error) {
       console.error("Logout error:", error);
+    } finally {
+      setUser(null);
     }
-
-    setUser(null);
   };
 
-  // Check login status first
   if (checkingSession) {
     return (
       <div
@@ -76,12 +83,10 @@ function App() {
     );
   }
 
-  // NOT LOGGED IN → SHOW ONLY LOGIN PAGE
   if (!user) {
     return <Login onLogin={handleLogin} />;
   }
 
-  // LOGGED IN → SHOW PORTFOLIO
   return (
     <div
       style={{
