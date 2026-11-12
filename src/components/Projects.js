@@ -62,14 +62,14 @@ function Projects() {
   const { darkMode } = useContext(ThemeContext);
 
   const theme = {
-    section: darkMode ? "#0f172a" : "#f8fafc",
-    card: darkMode ? "#1e293b" : "#ffffff",
+    section: darkMode ? "#0f172a" : "transparent",
+    card: darkMode ? "#1e293b" : "rgba(255, 255, 255, 0.94)",
     title: darkMode ? "#f8fafc" : "#111827",
-    description: darkMode ? "#cbd5e1" : "#475569",
-    border: darkMode ? "#334155" : "#e2e8f0",
-    badge: darkMode ? "#334155" : "#eff6ff",
+    description: darkMode ? "#cbd5e1" : "#374151",
+    border: darkMode ? "#334155" : "rgba(255, 255, 255, 0.7)",
+    badge: darkMode ? "#334155" : "#eef2ff",
     badgeText: darkMode ? "#e2e8f0" : "#334155",
-    muted: darkMode ? "#94a3b8" : "#64748b",
+    muted: darkMode ? "#94a3b8" : "#4b5563",
   };
 
   return (
@@ -96,7 +96,7 @@ function Projects() {
         >
           <p
             style={{
-              color: "#6366f1",
+              color: darkMode ? "#818cf8" : "#ffffff",
               fontSize: "15px",
               fontWeight: "700",
               letterSpacing: "3px",
@@ -112,7 +112,7 @@ function Projects() {
               fontSize: "clamp(32px, 5vw, 46px)",
               fontWeight: "800",
               margin: "0 0 15px",
-              color: theme.title,
+              color: darkMode ? theme.title : "#ffffff",
             }}
           >
             Featured Projects
@@ -120,7 +120,7 @@ function Projects() {
 
           <p
             style={{
-              color: theme.muted,
+              color: darkMode ? theme.muted : "#F3F4F6",
               fontSize: "16px",
               lineHeight: "1.7",
               maxWidth: "600px",
@@ -144,7 +144,7 @@ function Projects() {
                 padding: "30px",
                 boxShadow: darkMode
                   ? "0 12px 30px rgba(0,0,0,0.18)"
-                  : "0 12px 30px rgba(15,23,42,0.07)",
+                  : "0 12px 30px rgba(15,23,42,0.15)",
                 transition: "all 0.3s ease",
                 display: "flex",
                 flexDirection: "column",
@@ -215,7 +215,7 @@ function Projects() {
                   style={{
                     fontSize: "13px",
                     fontWeight: "700",
-                    color: "#818cf8",
+                    color: darkMode ? "#818cf8" : "#4f46e5",
                     marginBottom: "13px",
                   }}
                 >
