@@ -1,36 +1,112 @@
 
-/* Light mode navbar */
-.navbar {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  width: 100%;
-  background: rgba(37, 99, 235, 0.22);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
-  transition: all 0.3s ease;
+import React, { useContext } from "react";
+import Switch from "react-switch";
+import { ThemeContext } from "../context/ThemeContext";
+
+import {
+  FaHome,
+  FaUser,
+  FaCode,
+  FaFolderOpen,
+  FaEnvelope,
+  FaGraduationCap,
+  FaSun,
+  FaMoon,
+  FaSignOutAlt,
+} from "react-icons/fa";
+
+function Navbar({ user, onLogout }) {
+  const { darkMode, toggleTheme } = useContext(ThemeContext);
+
+  const links = [
+    { name: "Home", icon: <FaHome /> },
+    { name: "About", icon: <FaUser /> },
+    { name: "Skills", icon: <FaCode /> },
+    { name: "Projects", icon: <FaFolderOpen /> },
+    { name: "Contact", icon: <FaEnvelope /> },
+    { name: "Education", icon: <FaGraduationCap /> },
+  ];
+
+  const handleNavigation = (link) => {
+    const id = link.toLowerCase();
+    const element = document.getElementById(id);
+
+    if (element) {
+      element.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  };
+
+  return (
+    <nav className={`navbar ${darkMode ? "dark" : ""}`}>
+      <div className="navbar-container">
+        <div
+          className="navbar-logo"
+          onClick={() => handleNavigation("Home")}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") handleNavigation("Home");
+          }}
+        >
+          Amulya.
+        </div>
+
+        <div className="navbar-links">
+          {links.map((link) => (
+            <button
+              key={link.name}
+              className="navbar-link"
+              onClick={() => handleNavigation(link.name)}
+              title={link.name}
+            >
+              {link.icon}
+              <span>{link.name}</span>
+            </button>
+          ))}
+        </div>
+
+        <div className="navbar-actions">
+          <div
+            className="theme-control"
+            title={darkMode ? "Switch to light mode" : "Switch to dark mode"}
+          >
+            {darkMode ? (
+              <FaMoon className="theme-icon" />
+            ) : (
+              <FaSun className="theme-icon" />
+            )}
+
+            <Switch
+              onChange={toggleTheme}
+              checked={darkMode}
+              uncheckedIcon={false}
+              checkedIcon={false}
+              height={22}
+              width={44}
+              handleDiameter={18}
+              offColor="#CBD5E1"
+              onColor="#6366F1"
+              aria-label="Toggle dark mode"
+            />
+          </div>
+
+          {user && (
+            <button
+              className="logout-button"
+              onClick={onLogout}
+              title="Logout"
+            >
+              <FaSignOutAlt />
+              <span>Logout</span>
+            </button>
+          )}
+        </div>
+      </div>
+    </nav>
+  );
 }
 
-/* Dark mode navbar - preserve dark appearance */
-.navbar.dark {
-  background: rgba(17, 24, 39, 0.95);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-/* Light mode navigation text */
-.navbar:not(.dark) .navbar-logo,
-.navbar:not(.dark) .navbar-link,
-.navbar:not(.dark) .theme-icon {
-  color: #ffffff;
-}
-
-/* Light mode navigation hover */
-.navbar:not(.dark) .navbar-link:hover {
-  color: #dbeafe;
-}
-
-/* Light mode logout button */
-.navbar:not(.dark) .logout-button {
-  color: #ffffff;
-}
+export default Navbar;
