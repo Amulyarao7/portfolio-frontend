@@ -1,3 +1,4 @@
+
 import React, { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 import { motion } from "framer-motion";
@@ -13,14 +14,14 @@ function Contact() {
   const { darkMode } = useContext(ThemeContext);
 
   const textColor = darkMode ? "#F9FAFB" : "#111827";
-  const secondaryColor = darkMode ? "#D1D5DB" : "#555";
+  const secondaryColor = darkMode ? "#D1D5DB" : "#374151";
 
   return (
     <section
       id="contact"
       style={{
         padding: "90px 20px",
-        background: darkMode ? "#111827" : "#f8f9fa",
+        background: darkMode ? "#111827" : "transparent",
         transition: "0.4s",
       }}
     >
@@ -33,7 +34,7 @@ function Contact() {
           textAlign: "center",
           fontSize: "45px",
           marginBottom: "55px",
-          color: textColor,
+          color: "#ffffff",
         }}
       >
         📬 Contact Me
@@ -50,12 +51,15 @@ function Contact() {
         style={{
           maxWidth: "800px",
           margin: "auto",
-          background: darkMode ? "#1F2937" : "#ffffff",
+          background: darkMode
+            ? "#1F2937"
+            : "rgba(255, 255, 255, 0.94)",
+          color: textColor,
           borderRadius: "20px",
           padding: "40px",
           boxShadow: darkMode
             ? "0 12px 35px rgba(0,0,0,.45)"
-            : "0 10px 25px rgba(0,0,0,.10)",
+            : "0 10px 25px rgba(0,0,0,.15)",
           transition: "0.4s",
         }}
       >
