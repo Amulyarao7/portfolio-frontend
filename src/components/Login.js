@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { GoogleLogin } from "@react-oauth/google";
 
-const API_URL =
-"https://bulk-tests-informal-recommends.trycloudflare.com"
+const AUTH_URL = "https://restaurants-apartment-consciousness-propecia.trycloudflare.com";
 function Login({ onLogin }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
