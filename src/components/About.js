@@ -1,3 +1,4 @@
+
 import { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 import { motion } from "framer-motion";
@@ -8,8 +9,6 @@ import {
   FaJava,
 } from "react-icons/fa";
 
-// import profile from "../assets/profile.jpg";
-
 function About() {
   const { darkMode } = useContext(ThemeContext);
 
@@ -18,8 +17,8 @@ function About() {
       id="about"
       style={{
         padding: "90px 20px",
-        background: darkMode ? "#0F172A" : "#ffffff",
-        color: darkMode ? "#F9FAFB" : "#111827",
+        background: darkMode ? "#0F172A" : "transparent",
+        color: "#FFFFFF",
         transition: "0.4s",
       }}
     >
@@ -32,6 +31,7 @@ function About() {
           textAlign: "center",
           fontSize: "45px",
           marginBottom: "60px",
+          color: "#FFFFFF",
         }}
       >
         👨‍💻 About Me
@@ -48,54 +48,32 @@ function About() {
           gap: "50px",
         }}
       >
-        {/* Left Side */}
-
         <motion.div
           initial={{ opacity: 0, x: -80 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          {/* Uncomment after adding your photo */}
-
-          {/*
-          <img
-            src={profile}
-            alt="Profile"
-            style={{
-              width: "320px",
-              height: "320px",
-              borderRadius: "50%",
-              objectFit: "cover",
-              border: "6px solid #3B82F6",
-              boxShadow: "0 15px 35px rgba(0,0,0,.25)",
-            }}
-          />
-          */}
-
-          {/* Placeholder */}
-
           <div
             style={{
               width: "320px",
               height: "320px",
               borderRadius: "50%",
-              background: darkMode ? "#1F2937" : "#E5E7EB",
+              background: darkMode
+                ? "#1F2937"
+                : "rgba(255,255,255,0.18)",
+              border: "4px solid rgba(255,255,255,0.5)",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
               fontSize: "120px",
-              color: "#3B82F6",
-              boxShadow: darkMode
-                ? "0 12px 30px rgba(0,0,0,.45)"
-                : "0 12px 30px rgba(0,0,0,.15)",
+              color: "#FFFFFF",
+              boxShadow: "0 12px 30px rgba(0,0,0,0.2)",
             }}
           >
             👩‍💻
           </div>
         </motion.div>
-
-        {/* Right Side */}
 
         <motion.div
           initial={{ opacity: 0, x: 80 }}
@@ -109,8 +87,9 @@ function About() {
         >
           <h2
             style={{
-              color: "#3B82F6",
+              color: "#FFD166",
               marginBottom: "20px",
+              fontSize: "28px",
             }}
           >
             Java Full Stack Developer
@@ -120,7 +99,7 @@ function About() {
             style={{
               fontSize: "18px",
               lineHeight: "1.9",
-              color: darkMode ? "#D1D5DB" : "#555",
+              color: darkMode ? "#D1D5DB" : "#FFFFFF",
             }}
           >
             I am currently pursuing an Integrated M.Tech in Computer
@@ -138,13 +117,10 @@ function About() {
             Data Structures & Algorithms.
           </p>
 
-          {/* Cards */}
-
           <div
             style={{
               display: "grid",
-              gridTemplateColumns:
-                "repeat(auto-fit,minmax(220px,1fr))",
+              gridTemplateColumns: "repeat(auto-fit,minmax(220px,1fr))",
               gap: "20px",
               marginTop: "35px",
             }}
@@ -191,19 +167,23 @@ function InfoCard({ icon, title, value, darkMode }) {
         scale: 1.03,
       }}
       style={{
-        background: darkMode ? "#1F2937" : "#F8FAFC",
+        background: darkMode
+          ? "#1F2937"
+          : "rgba(255,255,255,0.94)",
+        color: darkMode ? "#FFFFFF" : "#172554",
         borderRadius: "18px",
         padding: "22px",
         textAlign: "center",
-        boxShadow: darkMode
-          ? "0 10px 25px rgba(0,0,0,.4)"
-          : "0 10px 20px rgba(0,0,0,.08)",
+        border: darkMode
+          ? "1px solid #374151"
+          : "1px solid rgba(255,255,255,0.5)",
+        boxShadow: "0 10px 25px rgba(0,0,0,0.15)",
       }}
     >
       <div
         style={{
           fontSize: "32px",
-          color: "#3B82F6",
+          color: "#4F46E5",
           marginBottom: "12px",
         }}
       >
@@ -214,7 +194,7 @@ function InfoCard({ icon, title, value, darkMode }) {
 
       <p
         style={{
-          color: darkMode ? "#D1D5DB" : "#555",
+          color: darkMode ? "#D1D5DB" : "#475569",
         }}
       >
         {value}
