@@ -11,7 +11,7 @@ import {
   FaRocket,
   FaEnvelope,
   FaFilePdf,
-  FaHandWave,
+  FaHandPaper,
 } from "react-icons/fa";
 
 function Hero() {
@@ -34,8 +34,8 @@ function Hero() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
         >
-          <FaHandWave />
-          Hello, welcome to my portfolio!
+        <FaHandPaper />
+Hello, welcome to my portfolio!
         </motion.div>
 
         <motion.h1
