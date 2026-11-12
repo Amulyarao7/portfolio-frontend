@@ -13,8 +13,7 @@ import Login from "./components/Login";
 
 import { ThemeContext } from "./context/ThemeContext";
 
-const AUTH_URL = "http://localhost:5002";
-
+const AUTH_URL = "https://restaurants-apartment-consciousness-propecia.trycloudflare.com";
 function App() {
   const { darkMode } = React.useContext(ThemeContext);
 
