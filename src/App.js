@@ -68,16 +68,14 @@ function App() {
 
   if (checkingSession) {
     return (
-      <div
-        style={{
-          minHeight: "100vh",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          fontSize: "22px",
-          fontWeight: "600",
-        }}
-      >
+      <div style={{
+        minHeight: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        fontSize: "22px",
+        fontWeight: "600",
+      }}>
         Checking authentication...
       </div>
     );
@@ -90,10 +88,12 @@ function App() {
   return (
     <div
       style={{
-        background: darkMode ? "#111827" : "#ffffff",
-        color: darkMode ? "#ffffff" : "#222222",
+        background: darkMode
+          ? "#111827"
+          : "linear-gradient(135deg, #2563EB 0%, #4F46E5 50%, #9333EA 100%)",
+        color: "#FFFFFF",
         minHeight: "100vh",
-        transition: "0.4s",
+        transition: "background 0.4s ease, color 0.4s ease",
       }}
     >
       <Navbar
