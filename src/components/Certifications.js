@@ -1,3 +1,4 @@
+
 import { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 import { motion } from "framer-motion";
@@ -10,13 +11,12 @@ function Certifications() {
       title: "Machine Learning Internship",
       organization: "Prodigy InfoTech",
       date: "Feb – Mar 2025",
-
     },
     {
       title: "MongoDB Python Developer Path",
       organization: "MongoDB University",
       date: "Jun 2025",
-      link:"https://learn.mongodb.com/c/4hh72vUFSn2FDTpcKvEJrA"
+      link: "https://learn.mongodb.com/c/4hh72vUFSn2FDTpcKvEJrA",
     },
     {
       title: "Cloud Computing Foundations",
@@ -27,12 +27,11 @@ function Certifications() {
       title: "Technology Job Simulation",
       organization: "Deloitte (Forage)",
       date: "Jun 2025",
-      link:"https://forage-uploads-prod.s3.amazonaws.com/completion-certificates/9PBTqmSxAf6zZTseP/udmxiyHeqYQLkTPvf_9PBTqmSxAf6zZTseP_iGEWTcbcxRk7RPw3S_1750333771680_completion_certificate.pdf"
+      link: "https://forage-uploads-prod.s3.amazonaws.com/completion-certificates/9PBTqmSxAf6zZTseP/udmxiyHeqYQLkTPvf_9PBTqmSxAf6zZTseP_iGEWTcbcxRk7RPw3S_1750333771680_completion_certificate.pdf",
     },
     {
       title: "TechNov'24 Hackathon Participant",
-      organization:
-        "NextGenCloud, VIT-AP & Purple Technologies",
+      organization: "NextGenCloud, VIT-AP & Purple Technologies",
       date: "Nov 2024",
     },
   ];
@@ -42,8 +41,8 @@ function Certifications() {
       id="certifications"
       style={{
         padding: "90px 20px",
-        background: darkMode ? "#111827" : "#ffffff",
-        color: darkMode ? "#F9FAFB" : "#111827",
+        background: darkMode ? "#111827" : "transparent",
+        color: "#F9FAFB",
         transition: "0.4s",
       }}
     >
@@ -56,7 +55,7 @@ function Certifications() {
           textAlign: "center",
           fontSize: "45px",
           marginBottom: "60px",
-          color: darkMode ? "#ffffff" : "#111827",
+          color: "#ffffff",
         }}
       >
         🏆 Certifications
@@ -65,7 +64,7 @@ function Certifications() {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit,minmax(320px,1fr))",
+          gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
           gap: "30px",
           maxWidth: "1200px",
           margin: "auto",
@@ -86,13 +85,15 @@ function Certifications() {
               scale: 1.03,
             }}
             style={{
-              background: darkMode ? "#1F2937" : "#f8f9fa",
+              background: darkMode
+                ? "#1F2937"
+                : "rgba(255, 255, 255, 0.94)",
               color: darkMode ? "#F9FAFB" : "#111827",
               padding: "28px",
               borderRadius: "18px",
               boxShadow: darkMode
                 ? "0 12px 30px rgba(0,0,0,.45)"
-                : "0 10px 25px rgba(0,0,0,.10)",
+                : "0 10px 25px rgba(0,0,0,.15)",
               transition: "0.3s",
             }}
           >
@@ -108,7 +109,7 @@ function Certifications() {
 
             <p
               style={{
-                color: darkMode ? "#D1D5DB" : "#555",
+                color: darkMode ? "#D1D5DB" : "#374151",
                 lineHeight: "1.8",
                 marginBottom: "12px",
               }}
@@ -118,34 +119,39 @@ function Certifications() {
 
             <p
               style={{
-                color: darkMode ? "#D1D5DB" : "#555",
+                color: darkMode ? "#D1D5DB" : "#374151",
                 lineHeight: "1.8",
               }}
             >
               <strong>Completed:</strong> {cert.date}
             </p>
+
             {cert.link && (
-  <a
-    href={cert.link}
-    target="_blank"
-    rel="noopener noreferrer"
-    style={{
-      display: "inline-block",
-      marginTop: "18px",
-      padding: "10px 18px",
-      background: "#2563EB",
-      color: "#fff",
-      textDecoration: "none",
-      borderRadius: "8px",
-      fontWeight: "600",
-      transition: "0.3s",
-    }}
-    onMouseOver={(e) => (e.target.style.background = "#1D4ED8")}
-    onMouseOut={(e) => (e.target.style.background = "#2563EB")}
-  >
-    📄 View Certificate
-  </a>
-)}
+              <a
+                href={cert.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: "inline-block",
+                  marginTop: "18px",
+                  padding: "10px 18px",
+                  background: "#2563EB",
+                  color: "#fff",
+                  textDecoration: "none",
+                  borderRadius: "8px",
+                  fontWeight: "600",
+                  transition: "0.3s",
+                }}
+                onMouseOver={(e) =>
+                  (e.currentTarget.style.background = "#1D4ED8")
+                }
+                onMouseOut={(e) =>
+                  (e.currentTarget.style.background = "#2563EB")
+                }
+              >
+                📄 View Certificate
+              </a>
+            )}
           </motion.div>
         ))}
       </div>
