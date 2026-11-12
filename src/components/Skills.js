@@ -1,3 +1,4 @@
+
 import { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 
@@ -46,9 +47,9 @@ function Skills() {
     <section
       id="skills"
       style={{
-        padding: "80px 20px",
-        background: darkMode ? "#111827" : "#ffffff",
-        color: darkMode ? "#F9FAFB" : "#111827",
+        padding: "90px 20px",
+        background: darkMode ? "#111827" : "transparent",
+        color: "#FFFFFF",
         transition: "all 0.4s ease",
       }}
     >
@@ -57,16 +58,16 @@ function Skills() {
           textAlign: "center",
           fontSize: "42px",
           marginBottom: "50px",
-          color: darkMode ? "#ffffff" : "#111827",
+          color: "#FFFFFF",
         }}
       >
-        Skills
+        💻 My Skills
       </h1>
 
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(300px,1fr))",
+          gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
           gap: "25px",
           maxWidth: "1100px",
           margin: "auto",
@@ -76,27 +77,35 @@ function Skills() {
           <div
             key={index}
             style={{
-              background: darkMode ? "#1F2937" : "#f8f9fa",
-              color: darkMode ? "#F9FAFB" : "#111827",
-              padding: "25px",
-              borderRadius: "15px",
-              boxShadow: darkMode
-                ? "0 8px 20px rgba(0,0,0,0.5)"
-                : "0 5px 15px rgba(0,0,0,0.08)",
+              background: darkMode
+                ? "#1F2937"
+                : "rgba(255,255,255,0.94)",
+              color: darkMode ? "#F9FAFB" : "#172554",
+              padding: "28px",
+              borderRadius: "18px",
+              border: darkMode
+                ? "1px solid #374151"
+                : "1px solid rgba(255,255,255,0.5)",
+              boxShadow: "0 10px 25px rgba(0,0,0,0.15)",
               transition: "all 0.3s ease",
               cursor: "pointer",
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = "translateY(-8px)";
+              e.currentTarget.style.boxShadow =
+                "0 16px 30px rgba(0,0,0,0.22)";
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = "translateY(0)";
+              e.currentTarget.style.boxShadow =
+                "0 10px 25px rgba(0,0,0,0.15)";
             }}
           >
             <h2
               style={{
-                color: darkMode ? "#60A5FA" : "#2563EB",
-                marginBottom: "15px",
+                color: darkMode ? "#60A5FA" : "#4F46E5",
+                marginBottom: "18px",
+                fontSize: "22px",
               }}
             >
               {category.title}
@@ -105,7 +114,8 @@ function Skills() {
             <ul
               style={{
                 paddingLeft: "20px",
-                lineHeight: "1.8",
+                lineHeight: "2",
+                margin: 0,
               }}
             >
               {category.skills.map((skill, i) => (
@@ -113,7 +123,7 @@ function Skills() {
                   key={i}
                   style={{
                     color: darkMode ? "#E5E7EB" : "#374151",
-                    fontSize: "17px",
+                    fontSize: "16px",
                   }}
                 >
                   {skill}
