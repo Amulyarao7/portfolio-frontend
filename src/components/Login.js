@@ -41,18 +41,41 @@ function Login({ onLogin }) {
     }
   };
 
-  const handleGoogleSuccess = (credentialResponse) => {
-    console.log("Google OAuth successful");
-    console.log("Google credential received:", credentialResponse);
+  
+const handleGoogleSuccess = async (credentialResponse) => {
+  setError("");
+  setLoading(true);
 
-    // OAuth demonstration:
-    // Google has authenticated the user.
-    // We treat the Google login as a successful portfolio login.
-    onLogin({
-      id: "google-user",
-      username: "Google User",
+  try {
+    const response = await fetch(`${AUTH_URL}/api/google-login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify({
+        credential: credentialResponse.credential,
+      }),
     });
-  };
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || "Google login failed");
+    }
+
+    onLogin(data.user);
+  } catch (err) {
+    setError(err.message || "Google authentication failed");
+  } finally {
+    setLoading(false);
+  }
+};
+
+const handleGoogleError = () => {
+  setError("Google login failed. Please try again.");
+};
+
 
   const handleGoogleError = () => {
     setError("Google login failed. Please try again.");
