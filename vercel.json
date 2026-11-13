@@ -3,7 +3,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": " https://extraction-constantly-beth-encouraging.trycloudflare.com"
+      "destination": "https://maintains-arctic-showtimes-payroll.trycloudflare.com"
     }
   ]
 }
